@@ -34,6 +34,11 @@
         $("#currentDay").text(moment().format('MMMM Do YYYY, h:mm:ss a'));
         </script>
       </p>
+      <p id="currentTime" class="lead">
+        <script>
+        $("#currentTime").text(moment().format('h a'));
+        </script>
+      </p>
     </header>
 
     <div class="container" id="timeBlockContainer">
@@ -44,21 +49,25 @@
 
 <script>
 
+var now = moment().format('h');
+
 //Potential loop for adding div elements to structure page
-var timeOfDay = ["9AM", "10AM", "11AM", "12PM", "1PM", "2PM", "3PM", "4PM", "5PM"];
+var timeOfDay = [9, 10, 11, 12, 1, 2, 3, 4, 5];
 
 for (var i = 0; i < timeOfDay.length; i++) {
   var rowDiv = $("<div>");
   rowDiv.attr("class", "row"); 
 
 //inside of each rowDiv:
-    var hourCol = $("<div>");
+  var hourCol = $("<div>");
+    moment().hour(timeOfDay[i]);
+    console.log(timeOfDay[i]);
     hourCol.text(timeOfDay[i]);
     hourCol.attr("class", "col hour");
     rowDiv.append(hourCol);
     console.log(hourCol);
 
-    //inside each hourCol, create input box
+//inside each hourCol, create input box
       var inputBox = $("<input>");
         inputBox.attr("class", "event col-9");
         rowDiv.append(inputBox);
@@ -70,23 +79,47 @@ for (var i = 0; i < timeOfDay.length; i++) {
     rowDiv.append(savBtnDiv);
     console.log(savBtnDiv);
 
-      //Actual button attaches as child to save btn div
+//Actual button attaches as child to save btn div
       var savBtn = $("<button>")
-      savBtn.attr("class", "fas fa-save");
-      savBtnDiv.append(savBtn);
-      console.log(savBtn);
+        savBtn.attr("class", "fas fa-save");
+        savBtnDiv.append(savBtn);
+        console.log(savBtn);
 
 
 //attach to main time block div container
 $("#timeBlockContainer").append(rowDiv);
 
+compareHour();
+
+function compareHour() {
+  if (moment(timeOfDay[i]).isSame(now)) {
+    inputBox.addClass("present");
+    console.log(inputBox);
+  }
+  else if (moment(timeOfDay[i]).isBefore(now)) {
+    inputBox.addClass("past");
+  }
+  else if (moment(timeOfDay[i]).isAfter(now)){
+    inputBox.addClass("future");
+  }
 }
 
-// function compareHour {
-//   if (timeOfDay[i] === )
+}
 
+
+// function compareHour() {
+//   if (moment(timeOfDay[i]).isSame(now)) {
+//     inputBox.addClass("present");
+//     console.log(inputBox);
+//   }
+//   else if (moment(timeOfDay[i]).isBefore(now)) {
+//     inputBox.addClass("past");
+//   }
+//   else if (moment(timeOfDay[i]).isAfter(now)){
+//     inputBox.addClass("future");
+//   }
 // }
-// }
+
 
 
 
