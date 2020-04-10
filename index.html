@@ -68,20 +68,16 @@ var timeOfDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
 //inside each hourCol, create input box
         var inputBox = $("<input>");
+        inputBox.value = "";
         inputBox.attr("type", "text");
         inputBox.attr("class", "col-9");
-
         //Is class="event" even needed? 
         // inputBox.attr("class", "event col-9");
-
-        inputBox.attr("id", "textBox");
         rowDiv.append(inputBox);
         console.log(inputBox);
-
-
     //Trying to set to local storage: 
-        // var textInput = document.getElementById("textBox").value;
-        // localStorage.setItem("textInput", textInput);
+        // localStorage.setItem("input", inputBox);
+        // console.log(inputBox);
 
 //Save btn div attaches to rowDiv
     var savBtnDiv = $("<div>");
@@ -92,10 +88,14 @@ var timeOfDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
         var savBtn = $("<button>")
         savBtn.attr("class", "fas fa-save");
         savBtn.attr("style", "font-size:50px");
-        savBtn.attr("id", "saveBtnID");
-        // savBtn.on("click", ) {
-        //   //Use .on here for click event
-        // }
+        // savBtn.attr("id", "saveBtnID");
+
+//Trying to set local storage here as second option
+        savBtn.click(function() {
+          localStorage.setItem("input", inputBox);
+          console.log(inputBox.value);
+          //Use .on -here- for click event?
+        });
         savBtnDiv.append(savBtn);
 
 
