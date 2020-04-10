@@ -53,7 +53,8 @@
 var now = moment().hours();
 
 //Potential loop for adding div elements to structure page
-var timeOfDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+var timeOfDay = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+
 
   for (var i = 0; i < timeOfDay.length; i++) {
     var rowDiv = $("<div>");
@@ -69,19 +70,9 @@ var timeOfDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 //inside each hourCol, create input box
         var inputBox = $("<input>");
         inputBox.attr("type", "text");
-        inputBox.attr("class", "col-9");
-
-        //Is class="event" even needed? 
-        // inputBox.attr("class", "event col-9");
-
+        inputBox.attr("class", "event col-9");
         inputBox.attr("id", "textBox");
         rowDiv.append(inputBox);
-        console.log(inputBox);
-
-
-    //Trying to set to local storage: 
-        // var textInput = document.getElementById("textBox").value;
-        // localStorage.setItem("textInput", textInput);
 
 //Save btn div attaches to rowDiv
     var savBtnDiv = $("<div>");
@@ -93,9 +84,6 @@ var timeOfDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
         savBtn.attr("class", "fas fa-save");
         savBtn.attr("style", "font-size:50px");
         savBtn.attr("id", "saveBtnID");
-        // savBtn.on("click", ) {
-        //   //Use .on here for click event
-        // }
         savBtnDiv.append(savBtn);
 
 
@@ -104,64 +92,62 @@ var timeOfDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
     compareHour();
 
+//function compares items in timeOfDay array to current time and
+// updates CSS accordingly.
+
 };
 
-//Compares hour at [i] in timeOfDay array to current hour, updates time blocks
-// css accordingly. 
+
 function compareHour() {
-
-  if (moment(timeOfDay[i]).isSame(now)) {
-    inputBox.addClass("present");
+  if (moment(timeOfDay[i]) === now ) {
+    $(this).addClass("present");
+    console.log(timeOfDay[i]);
   }
-  else if (moment(timeOfDay[i]).isBefore(now)) {
-    inputBox.addClass("past");
+  else if (moment(timeOfDay[i]) < now) {
+    $(this).addClass("past");
   }
-  else if (moment(timeOfDay[i]).isAfter(now)){
-    inputBox.addClass("future");
+  else {
+    $(this).addClass("future");
   }
-}
+};
 
+compareHour();
 
-
-
-//Trying potential storage solutions: 
-
-
-// // //Section to keep user input in local storage
+// //Section to keep user input in local storage
 // var userInput = document.getElementById("textBox");
+//     if (userInput === null) {
+//         userInput = [];
+//     }
+//     else {
+//         localStorage.setItem("textBox", userInput);
+//         console.log(userInput);
+//     }
 
-//         localStorage.setItem("userInput", userInput);
-//         console.log(userInput.val);
 
-
-
-
-
-// Function to save input on click
+//Function to save input on click
 // var userInput = document.getElementById("textBox");
-// var saveButton = document.getElementById("saveBtnId");
-// var input = [];
+// var saveButton = document.getElementById("saveBtnID");
 
-// function storeInput() {
-//   localStorage.setItem("input", JSON.stringify(input));
-// }
+  // $(timeOfDay).each(function() {
+  //       var textInput = $("#textBox").val();
+  //       console.log(textInput);
+  //   });
 
-// saveButton.onClick(function() {
-//   event.preventDefault();
-//   var inputText = userInput.value;
 
-//   if (userInput === "") {
-//     return;
+
+
+// function compareHour() {
+//   if (moment(timeOfDay[i]).isSame(now)) {
+//     inputBox.addClass("present");
+//     console.log(inputBox);
 //   }
-
-//   input.push(inputText);
-//   userInput.value = "";
-
-//   storeInput();
-
-// });
-
-
+//   else if (moment(timeOfDay[i]).isBefore(now)) {
+//     inputBox.addClass("past");
+//   }
+//   else if (moment(timeOfDay[i]).isAfter(now)){
+//     inputBox.addClass("future");
+//   }
+// }
 
 
 
