@@ -41,42 +41,42 @@
 </html>
 
 <script>
-
+  //Variable to compare current time with items in array
   var now = moment().hours();
 
-  //Potential loop for adding div elements to structure page
+  //Array that contains each hour of work day (military time)
   var timeOfDay = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 
+  //Loop for adding div elements to structure page for each item in array
   for (var i = 0; i < timeOfDay.length; i++) {
     var rowDiv = $("<div>");
     rowDiv.attr("class", "row");
 
-    //inside of each rowDiv:
+    //Adds the hour column inside of each rowDiv:
     var hourCol = $("<div>");
     moment().hour(timeOfDay[i]);
     hourCol.text(timeOfDay[i]);
     hourCol.attr("class", "col hour");
     rowDiv.append(hourCol);
 
-    //inside each hourCol, create input box
+    //Creates an input text box inside of each hourCol
     var inputBox = $("<input>");
     var localStoreVal = localStorage.getItem(i);
+    //if there are items in local storage, it grabs it here and shows it in the text box. 
     if (localStoreVal) {
       inputBox.val(localStoreVal);
+      //Else, sets the string to empty so that the box is clear
     } else {
       inputBox.val("");
     }
+    //Adding attributes for the text boxes including the proper styling class, type, and unique ids for each box.
     inputBox.attr("type", "text");
     inputBox.attr("class", "col-9");
     inputBox.attr("id", "input" + i);
-    //Is class="event" even needed? 
-    // inputBox.attr("class", "event col-9");
     rowDiv.append(inputBox);
-    //Trying to set to local storage: 
-    // localStorage.setItem("input", inputBox);
-    // console.log(inputBox);
 
-    //Save btn div attaches to rowDiv
+
+    //Div is created for the save button and attaches to rowDiv
     var savBtnDiv = $("<div>");
     savBtnDiv.attr("class", "saveBtn col");
     rowDiv.append(savBtnDiv);
@@ -86,41 +86,30 @@
     savBtn.attr("class", "fas fa-save");
     savBtn.attr("style", "font-size:50px");
     savBtn.attr("id", "saveBtnID" + i);
+    savBtnDiv.append(savBtn);
 
-    //Trying to set local storage here as second option
-
+    //Function that saves the input from the text box to local storage when the save button is clicked. 
     savBtn.click(function () {
       var id = $(this).attr("id");
       var index = id[id.length - 1];
-
+      //Saves value for each unique save button and input position
       $("#input" + i) + $("#saveBtnID" + i);
       var value = $("#input" + index).val();
       console.log(value);
-
-      //Todo: input0 needs to be inputi. Assign correct id's to correct boxes. 
       localStorage.setItem(index, value);
-      // --OR--
-      // localStorage.setItem("input", inputBox[i].value());
-      // console.log(inputBox);
-      //Use .on -here- for click event?
+
     });
 
-
-
-    savBtnDiv.append(savBtn);
-
-
-    //attach to main time block div container
+    //Attach all elements created above to main time block div container
     $("#timeBlockContainer").append(rowDiv);
 
+    //Running function to compare the current hour to the scheduler hour listed on the document.
     compareHour();
 
   };
 
-  //Compares hour at [i] in timeOfDay array to current hour, updates time blocks
-  // css accordingly. 
+  //Compares hour at [i] in timeOfDay array to current hour, updates time block css classes and properties accordingly. 
   function compareHour() {
-
     if (moment(timeOfDay[i]).isSame(now)) {
       inputBox.addClass("present");
     }
@@ -133,12 +122,13 @@
   }
 
 
+</script>
 
+
+
+<script>
 
 //Trying potential storage solutions: 
-
-
-// // //Section to keep user input in local storage
 // var userInput = document.getElementById("textBox");
 
 //         localStorage.setItem("userInput", userInput);
@@ -148,7 +138,7 @@
 
 
 
-// Function to save input on click
+// Another attempt at a Function to save input on click
 // var userInput = document.getElementById("textBox");
 // var saveButton = document.getElementById("saveBtnId");
 // var input = [];
@@ -171,10 +161,4 @@
 //   storeInput();
 
 // });
-
-
-
-
-
-
 </script>
