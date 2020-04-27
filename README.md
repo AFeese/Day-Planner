@@ -1,5 +1,6 @@
 # Workday Scheduler by Ashley Feese
 
+Link to deployed application: https://apollodragon13.github.io/Day-Planner/
 
 The workday scheduler helps organize your day! 
 When the page is loaded, the document shows the title, current day as well as time of the day in real-time. Segments are divided into a standard work day and hours to the left are written in military time. The document compares the left-hand hour times to the current real time and changes the background of the text fields according to time of day. 
